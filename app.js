@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -31,10 +32,10 @@ app.post("/", (req, res) => {
 
     const jsonData = JSON.stringify(dataToSend);
 
-    const url = "https://us19.api.mailchimp.com/3.0/lists/77f133a2ea";
+    const url = process.env.URL;
     const options = {
         method: "POST",
-        auth: "Lakshay:9b3d9a45a6a5ea8ab44e87067d011d2b-us19"
+        auth: process.env.AUTH
     };
     const request = https.request(url, options, (response) => {
         if (response.statusCode === 200) {
@@ -58,10 +59,3 @@ app.post("/failure", (req,res) => {
 app.listen(process.env.PORT || 3000, (req, res) => {
     console.log("Server started at 3000");
 });
-
-
-//  mailchimp api key
-// 9b3d9a45a6a5ea8ab44e87067d011d2b-us19
-
-// List id
-// 77f133a2ea
